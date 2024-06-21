@@ -3,17 +3,14 @@ import UserFunction from "./components/user/UserFunction";
 import UserClass from "./components/user/UserClass";
 import UserChildren from "./components/user/UserChildren";
 
-class App extends React.Component {
-  state = {
-    korisnici: [
+function App () {
+  const [korisnici, setKorisnici] = React.useState ([
       { ime: "Marko", godine: 25 },
       { ime: "Ana", godine: 24 },
       { ime: "Ivo", godine: 32 },
-    ],
-    hoby: "Moj hobi je ljuljanje na stolici",
-  };
+    ]);
 
-  handleButtonPress = () => {
+  const handleButtonPress = () => {
     const { korisnici } = this.state;
     /*const noviKorisnici = korisnici.map((korisnik) => {
       return { ...korisnik, godine: korisnik.godine + 1 };
@@ -27,11 +24,19 @@ class App extends React.Component {
       noviKorisnici[i] = korisnik;
     }
 
-    this.setState({ korisnici: noviKorisnici });
+
+    setKorisnici(noviKorisnici);
+    //this.setState({ korisnici: noviKorisnici });
   };
 
-  render() {
-    const { korisnici } = this.state;
+  const promjenaImena = (event) => {
+    let noviKorisnici = [...korisnici];
+      korisnici[0].ime = event.target.value;
+      setKorisnici (noviKorisnici);
+
+  };
+
+    //const { korisnici } = this.state;
 
     return (
       <div>
@@ -39,6 +44,7 @@ class App extends React.Component {
         <UserFunction
           ime={korisnici[0].ime}
           godine={korisnici[0].godine}
+          onNameChange = {this.promjenaImena}
         ></UserFunction>
 
         <UserClass
@@ -47,11 +53,11 @@ class App extends React.Component {
         ></UserClass>
 
         <UserChildren ime={korisnici[2].ime} godine={korisnici[2].godine}>
-          <a href="#">{this.state.hoby}</a>
+          <a href="https://google.com">hoby</a>
         </UserChildren>
       </div>
     );
-  }
+ 
 }
 
 export default App;
